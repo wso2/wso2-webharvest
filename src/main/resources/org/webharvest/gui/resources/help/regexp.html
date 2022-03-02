@@ -1,0 +1,142 @@
+<div>
+    Searches the body for the given regular expression and optionally replaces
+    found occurrences with specified pattern. If body is a list of values then
+    the regexp processor is applied to every item and final execution result is
+    the list.  
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;regexp replace="true_or_false"
+        max="max_found_occurrences"
+        flag-canoneq="flag-canoneq"
+        flag-caseinsensitive="flag-caseinsensitive"
+        flag-dotall="flag-dotall"
+        flag-multiline="flag-multiline"
+        flag-unicodecase="flag-unicodecase"&gt;
+    &lt;regexp-pattern&gt;
+        body as pattern value
+    &lt;/regexp-pattern&gt;
+    &lt;regexp-source&gt;
+        body as the text source
+    &lt;/regexp-source&gt;
+    [&lt;regexp-result&gt;
+        body as the result
+    &lt;/regexp-result&gt;]
+&lt;/regexp&gt;</pre>
+</div>
+
+<p>
+    For each <em>group</em> inside the search pattern and for each found occurrence variables
+    with names <code>_&lt;group_number&gt;</code> are created. See some Regular Expression
+    tutorial for better explanation of groups.
+</p>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>replace</td>
+            <td>no</td>
+            <td>false</td>
+            <td>
+                Logical value telling if found occurrences of regular expression will be replaced.
+                Valid values are: <em>true/false</em> or <em>yes/no</em>. If this value is <em>true (yes)</em>,
+                then the <code>regexp-result</code> needs to be specified with replacement value.
+            </td>
+        </tr>
+        <tr>
+            <td>max</td>
+            <td>no</td>
+            <td></td>
+            <td>
+                Limits the number of found pattern occurrences.
+                There is no limit if it is not specified.
+            </td>
+        </tr>
+        <tr>
+            <td nowrap>flag-canoneq</td>
+            <td>no</td>
+            <td>no</td>
+            <td>
+                Enables canonical equivalence.
+            </td>
+        </tr>
+        <tr>
+            <td nowrap>flag-caseinsensitive</td>
+            <td>no</td>
+            <td>no</td>
+            <td>
+                Enables case-insensitive matching.
+            </td>
+        </tr>
+        <tr>
+            <td>flag-dotall</td>
+            <td>no</td>
+            <td>yes</td>
+            <td>
+                Enables dotall mode.
+            </td>
+        </tr>
+        <tr>
+            <td nowrap>flag-multiline</td>
+            <td>no</td>
+            <td>no</td>
+            <td>
+                Enables multiline mode.
+            </td>
+        </tr>
+        <tr>
+            <td nowrap>flag-unicodecase</td>
+            <td>no</td>
+            <td>yes</td>
+            <td>
+                Enables Unicode-aware case folding.
+            </td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example #1</h3>
+<div>
+<pre>&lt;regexp&gt;
+    &lt;regexp-pattern&gt;([_\w\d]*)[\s]*=[\s]*([\w\d\s]*+)[\,\.\;]*&lt;/regexp-pattern&gt;
+    &lt;regexp-source&gt;
+        var1= test1, var2 = bla bla; index=16;
+        city = Delhi,town=Kingston;
+    &lt;/regexp-source&gt;
+    &lt;regexp-result&gt;
+        &lt;template&gt;Value of variable "${_1}" is "${_2}"!&lt;/template&gt;
+    &lt;/regexp-result&gt;
+&lt;/regexp&gt;</pre>
+</div>
+<p>
+    Here, regular expression is looking for specified pattern in two strings, producing
+    as a result list of five values: <em>Value of variable "var1" is "test1"!</em>,
+    <em>Value of variable "var2" is "bla bla"!</em> ...
+</p>
+
+
+<h3>Example #2</h3>
+<div>
+<pre>&lt;regexp replace="true"&gt;
+    &lt;regexp-pattern&gt;[\s]*[\,\.\;][\s]*&lt;/regexp-pattern&gt;
+    &lt;regexp-source&gt;
+        var1= test1, var2 = bla bla; index=16; city = Delhi,town=Kingston;
+    &lt;/regexp-source&gt;
+    &lt;regexp-result&gt;
+        &lt;template&gt;|&lt;/template&gt;
+    &lt;/regexp-result&gt;
+&lt;/regexp&gt;</pre>
+</div>
+<p>
+    Here, the regular expression replacement produces single value as the result:
+    <em>var1= test1|var2 = bla bla|index=16|city = Delhi|town=Kingston|</em>.
+</p>

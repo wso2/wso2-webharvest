@@ -1,0 +1,92 @@
+<div>
+    <p>
+        Object <b>sys</b> contains some general-purpose constants and methods:
+    </p>
+    
+    <div>
+        <table border="1">
+            <tr>
+                <td><code>sys.lf</code></td>
+                <td>Line feed character (\n)</td>
+            </tr>
+            <tr>
+                <td><code>sys.cr</code></td>
+                <td>Carriage return character (\r)</td>
+            </tr>
+            <tr>
+                <td><code>sys.tab</code></td>
+                <td>Tab character (\t)</td>
+            </tr>
+            <tr>
+                <td><code>sys.space</code></td>
+                <td>Space character ( )</td>
+            </tr>
+            <tr>
+                <td><code>sys.quot</code></td>
+                <td>Double quote character (")</td>
+            </tr>
+            <tr>
+                <td><code>sys.apos</code></td>
+                <td>Single quote character (')</td>
+            </tr>
+            <tr>
+                <td><code>sys.backspace</code></td>
+                <td>Backspace character (\b)</td>
+            </tr>
+            <tr>
+                <td><code>sys.date()</code></td>
+                <td>Returns current date in the <em>yyyyMMdd</em> format</td>
+            </tr>
+            <tr>
+                <td><code>sys.time()</code></td>
+                <td>Returns current time in the <em>HHmmss</em> format</td>
+            </tr>
+            <tr>
+                <td><code>sys.datetime(format)</code></td>
+                <td>
+                    Returns date/time in specified format (Java date and time
+                    formatting patterns must be used).
+                </td>
+            </tr>
+            <tr>
+                <td><code>sys.escapeXml(text)</code></td>
+                <td>
+                    Escapes characters <code>&'"&lt;&gt;</code>
+                    in the specified text according to XML standard.
+                </td>
+            </tr>
+            <tr>
+                <td><code>sys.fullUrl(pageUrl, link)</code></td>
+                <td>
+                    For the specified URL of the web page and specified link
+                    (which could be relative, absolute or full URL) returns full URL.
+                </td>
+            </tr>
+            <tr>
+                <td><code>sys.defineVariable(varname, varvalue, [overwrite])</code></td>
+                <td>
+                    Defines new variable with specified name and value in the current
+                    Web-Harvest context. Parameter <code>overwrite</code> tells whether
+                    to overwrite existing variable with the same name. Its default value
+                    is <code>true</code>. It has the same meaning as
+                    <code>var-def</code> processor, however it could be useful for
+                    value exchange between scripts and Web-Harvest context.
+                </td>
+            </tr>
+            <tr>
+                <td><code>sys.isVariableDefined(varname)</code></td>
+                <td>
+                    Tells if variable with specified name is defined in the context.
+                </td>
+            </tr>
+            <tr>
+                <td><code>xpath(xpathexpr, xml)</code></td>
+                <td>
+                    Evaluates XPath expression on specified XML.
+                    Returns instance of <code>org.webharvest.runtime.variables.Variable</code>
+                    class.
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

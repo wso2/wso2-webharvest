@@ -1,0 +1,58 @@
+<div>
+    Defines new or overrides existing variable with specified name and value.
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;var-def name="variable_name" overwrite="overwrite_existing"&gt;
+    body as value of the variable
+&lt;/var-def&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>yes</td>
+            <td></td>
+            <td>
+                The name of variable. Should be valid like in most programming
+                languages.
+            </td>
+        </tr>
+        <tr>
+            <td>overwrite</td>
+            <td>no</td>
+            <td>true</td>
+            <td>
+                Boolean value (<em>true</em> or <em>false</em>) telling if existing
+                variable with the same name will be overwriten or not.
+            </td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example</h3>
+<div>
+<pre>&lt;var-def name="digitList"&gt;
+    &lt;while condition="true" index="i" maxloops="9"&gt;
+        &lt;var-def name="digit${i}"&gt;
+            &lt;template&gt;${i}&lt;/template&gt;
+        &lt;/var-def&gt;
+    &lt;/while&gt;
+&lt;/var-def&gt;</pre>
+</div>
+
+<p>
+    This example defines the variable <em>digitList</em> which is the sequence of 9 values
+    (digits from 1 to 9), and 10 simple variables <em>digit1</em>, <em>digit2</em>, ...,
+    <em>digit9</em> with values ranging from 1 to 9.
+</p>

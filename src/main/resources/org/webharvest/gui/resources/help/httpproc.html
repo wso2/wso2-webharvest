@@ -1,0 +1,103 @@
+<div>
+    Sends HTTP request to the specified URL and gets HTTP response as a result.
+    First the body of the processor is executed in order to define optional
+    HTTP parameters and/or headers and then sends HTTP request.  
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;http url="url"
+      method="method"
+      charset="charset"
+      cookie-policy="cookie_policy"
+      username="username"
+      password="password"
+      multipart="multipart"&gt;
+    body that might contain http-param and/or http-header elements
+&lt;/http&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>url</td>
+            <td>yes</td>
+            <td></td>
+            <td>
+                HTTP request URL.
+            </td>
+        </tr>
+        <tr>
+            <td>method</td>
+            <td>no</td>
+            <td>get</td>
+            <td>
+                HTTP method: <em>get</em> or <em>post</em>
+            </td>
+        </tr>
+        <tr>
+            <td>charset</td>
+            <td>no</td>
+            <td>[Default charset for config]</td>
+            <td>
+                Defines encoding of the HTTP response content. Has no effect
+                if content type is binary.
+            </td>
+        </tr>
+        <tr>
+            <td>cookie-policy</td>
+            <td>no</td>
+            <td>[Default cookie policy of the HTTP client]</td>
+            <td>
+                Specifies the way how HTTP client manages cookies. Allowed values are:
+                <em>browser</em>, <em>ignore</em>, <em>netscape</em>, <em>rfc_2109</em> and <em>default</em>.
+            </td>
+        </tr>
+        <tr>
+            <td>username</td>
+            <td>no</td>
+            <td></td>
+            <td>
+                Specifies username if URL requires authentication.
+            </td>
+        </tr>
+        <tr>
+            <td>password</td>
+            <td>no</td>
+            <td></td>
+            <td>
+                Specifies password if URL requires authentication.
+            </td>
+        </tr>
+        <tr>
+            <td>multipart</td>
+            <td>no</td>
+            <td>no</td>
+            <td>
+                Tells if form is multipart encoded (enabling data upload).
+            </td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example</h3>
+<div>
+<pre>&lt;xpath expression="data(//script)"&gt;
+    &lt;html-to-xml&gt;
+        &lt;http url="http://www.yahoo.com/"/&gt;
+    &lt;/html-to-xml&gt;
+&lt;/xpath&gt;</pre>
+</div>
+
+<p>
+    The content of <em>www.yahoo.com</em> is downloaded, transformed to XML and then all scripts inside the page
+    are found.
+</p>

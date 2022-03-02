@@ -1,0 +1,119 @@
+<p>
+    Creates FTP connection and executes some of valid ftp-based operations against the server:
+    <code>ftp-list</code>, <code>ftp-get</code>, <code>ftp-put</code>, <code>ftp-del</code>,
+    <code>ftp-mkdir</code>, <code>ftp-rmdir</code>.
+</p>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;ftp server="server" port="port" username="username" password="password"
+     account="account" remotedir="remotedir"&gt;
+    [&lt;ftp-list path="path" listfiles="listfiles" listdirs="listdirs"
+               listlinks="listlinks" listfilter="listfilter"/&gt;]*
+    [&lt;ftp-get path="path"/&gt;]*
+    [&lt;ftp-put path="path" charset="charset"&gt;
+        content to save
+    &lt;/ftp-put&gt;]*
+    [&lt;ftp-del path="path"/&gt;]*
+    [&lt;ftp-mkdir path="path"/&gt;]*
+    [&lt;ftp-rmdir path="path"/&gt;]*
+&lt;/ftp&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Required</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>server</td>
+        <td>yes</td>
+        <td></td>
+        <td>
+            FTP server address.
+        </td>
+    </tr>
+    <tr>
+        <td>port</td>
+        <td>no</td>
+        <td>21</td>
+        <td>
+            FTP server port.
+        </td>
+    </tr>
+    <tr>
+        <td>username</td>
+        <td>yes</td>
+        <td></td>
+        <td>
+            FTP server username.
+        </td>
+    </tr>
+    <tr>
+        <td>password</td>
+        <td>yes</td>
+        <td></td>
+        <td>
+            FTP server password.
+        </td>
+    </tr>
+    <tr>
+        <td>account</td>
+        <td>no</td>
+        <td></td>
+        <td>
+            FTP server account name.
+        </td>
+    </tr>
+    <tr>
+        <td>remotedir</td>
+        <td>no</td>
+        <td></td>
+        <td>
+            Working remote directory on FTP server.
+        </td>
+    </tr>
+    <tr>
+        <td>path</td>
+        <td>yes</td>
+        <td></td>
+        <td>
+            Path of the file/directory to be accessed/added/removed.
+        </td>
+    </tr>
+    <tr>
+        <td>listfiles</td>
+        <td>no</td>
+        <td>yes</td>
+        <td>
+            Tells whether to include files in the list.
+        </td>
+    </tr>
+    <tr>
+        <td>listdirs</td>
+        <td>no</td>
+        <td>yes</td>
+        <td>
+            Tells whether to include directories in the list.
+        </td>
+    </tr>
+    <tr>
+        <td>listlinks</td>
+        <td>no</td>
+        <td>yes</td>
+        <td>
+            Tells whether to include links in the list.
+        </td>
+    </tr>
+    <tr>
+        <td>listfilter</td>
+        <td>no</td>
+        <td></td>
+        <td>
+            Filter used for listing files. May include * and ?, i.e. <code>my*.ex?</code>
+        </td>
+    </tr>
+</table>

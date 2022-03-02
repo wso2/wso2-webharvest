@@ -1,0 +1,64 @@
+<div>
+    Executes conditional statement. Sequentially checks if some of the specified
+    conditions in inner <em>if</em> elements is satisfied and if found one returns
+    its body as the result. If no true statement is found result of execution is
+    body of <em>else</em> statement if specified, or empty value otherwise.  
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;case&gt;
+    [&lt;if condition="expression"&gt;
+        if body
+    &lt;/if&gt;] *
+    [&lt;else&gt;
+        else body
+    &lt;/else&gt;]
+&lt;/case&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>condition</td>
+            <td>yes</td>
+            <td></td>
+            <td>
+                If true (yes), body of <code>if</code> is evaluated.
+            </td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example</h3>
+<div>
+<pre>&lt;var-def name="contact"&gt;
+    &lt;xpath expression="//a[contains(., 'contact')]/@href"&gt;
+        &lt;var name="pageContent"/&gt;
+    &lt;/xpath&gt;
+&lt;/var-def&gt;
+
+&lt;var-def name="contactMail"&gt;
+    &lt;case&gt;
+        &lt;if condition="${contact.toString() != ''}"&gt;
+            &lt;var name="contact"/&gt;
+        &lt;/if&gt;
+        &lt;else&gt;
+            Contact is not defined!
+        &lt;/else&gt;
+    &lt;/case&gt;
+&lt;/var-def&gt;</pre>
+</div>
+
+<p>
+    Here, conditional processor is used to check if previous <em>xpath</em> search has
+    found contact information on the page.
+</p>

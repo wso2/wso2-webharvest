@@ -1,0 +1,128 @@
+<p>
+    Execute query against database.<br><br>
+    JDBC driver library file(s) should be provided on the classpath
+    if used programatically, or on the same path with Web-Harvest executable if used standalone.
+    In case of SELECT sql statement, it returns list of row objects. They can be accessed with
+    special accessor methods:
+</p>
+<br>
+<div style="padding-left:20px;">
+    <code>&lt;mydbrow&gt;.getColumnCount()</code> - returns number of columns returned.<br>
+    <code>&lt;mydbrow&gt;.getColumnName(index)</code> - returns name for column number.<br>
+    <code>&lt;mydbrow&gt;.get(column_index)</code> - returns field value for column number.<br>
+    <code>&lt;mydbrow&gt;.get(column_name)</code> - returns field value for column name.<br>
+</div>
+<p>
+    The whole list of returned db rows can be accessed by index to get individual row:
+</p>
+<br>
+<div style="padding-left:20px;">
+    <code>&lt;mydbvar&gt;.get(rowindex)</code>
+</div>
+<p>
+    For example:
+</p>
+<br>
+<div style="padding-left:20px;">
+    <code>mydb.get(0).get("image") </code>
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;database connection="jdbc connection string"
+          jdbcclass="full named jdbc class"
+          username="username"
+          password="password"
+          autocommit="autocommit"
+          max="max rows returned"&gt;
+    select, insert or delete SQL query
+&lt;/database&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Required</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>connection</td>
+        <td>yes</td>
+        <td></td>
+        <td>
+            Properly formatted JDBC string for the database. It depends on database/driver vendor.
+        </td>
+    </tr>
+    <tr>
+        <td>jdbcclass</td>
+        <td>yes</td>
+        <td></td>
+        <td>
+            Fully qualified class name of the JDBC driver.
+        </td>
+    </tr>
+    <tr>
+        <td>username</td>
+        <td>no</td>
+        <td></td>
+        <td>
+            Username to access database.
+        </td>
+    </tr>
+    <tr>
+        <td>password</td>
+        <td>no</td>
+        <td></td>
+        <td>
+            Password to access database.
+        </td>
+    </tr>
+    <tr>
+        <td>autocommit</td>
+        <td>no</td>
+        <td>true</td>
+        <td>
+            Whether commit is performed automatically after query execution.
+        </td>
+    </tr>
+    <tr>
+        <td>max</td>
+        <td>no</td>
+        <td>no limit</td>
+        <td>
+            Maximum number of returned rows from the SELECT statement.
+        </td>
+    </tr>
+</table>
+
+<h3>Example 1</h3>
+<div>
+<pre>&lt;var-def name="employees"&gt;
+    &lt;database connection="jdbc:microsoft:Sqlserver://myserver:1433;databaseName=mycompany;user=sa;password=hehehe"
+              jdbcclass="com.microsoft.jdbc.sqlserver.SQLServerDriver"&gt;
+        select name, salary from employee
+    &lt;/database&gt;
+&lt;/var-def&gt;
+
+&lt;loop item="emp"&gt;
+    &lt;list&gt;
+        &lt;var name="employees"/&gt;
+    &lt;/list&gt;
+    &lt;body&gt;
+        &lt;template&gt;Salary of ${emp.get("name")} is ${emp.get("salary")}&lt;/template&gt;
+    &lt;/body&gt;
+&lt;/loop&gt;</pre>
+</div>
+
+<h3>Example 2</h3>
+<div>
+<pre>&lt;database connection="jdbc:microsoft:Sqlserver://myserver:1433;databaseName=mycompany;user=sa;password=hehehe"
+          jdbcclass="com.microsoft.jdbc.sqlserver.SQLServerDriver"&gt;
+    &lt;template&gt;
+        insert into news (id, url, text, source)
+        values (${myId}, '${myUrl}', '${myText}', '${mySource}')
+    &lt;/template&gt;
+&lt;/database&gt;</pre>
+</div>

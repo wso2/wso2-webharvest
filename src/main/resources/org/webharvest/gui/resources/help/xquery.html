@@ -1,0 +1,96 @@
+<div>
+    Uses an XQuery language expression to query an XML document.  
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;xquery&gt;
+    [&lt;xq-param name="xquery_param_name" [type="xquery_param_type"]&gt;
+        body as xquery parameter value
+    &lt;/xq-param&gt;] *
+    &lt;xq-expression&gt;
+        body as xquery language construct
+    &lt;/xq-expression&gt;
+&lt;/xquery&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>yes</td>
+            <td></td>
+            <td>
+                Name of XQuery parameter
+            </td>
+        </tr>
+        <tr>
+            <td>type</td>
+            <td>no</td>
+            <td>node()</td>
+            <td>
+                Type of XQuery parameter - one of the values:
+                <code>node()</code>, <code>integer</code>, <code>long</code>,
+                <code>float</code>, <code>double</code>, <code>boolean</code>,
+                <code>string</code>,
+                <code>node()*</code>, <code>integer*</code>, <code>long*</code>,
+                <code>float*</code>, <code>double*</code>, <code>boolean*</code>, <code>string*</code>.
+            </td>
+        </tr>
+    </table>
+</div>
+
+<br>
+<div>
+    It is allowed to optionally specify multiple external parameters for the query.
+    In most cases at least one, containing XML document is needed. For every specified
+    xquery parameter the declaration inside the <code>xq-expression</code> in the form:
+        <div style="padding-left: 20px;padding-top:10px; padding-bottom:10px;">
+            <code>declare variable $&lt;xquery_param_name&gt; as &lt;xquery_param_type&gt; external;</code>
+        </div>
+    is required in order to match the name and type of proceeded parameter.
+    Valid parameter types supported by Web-Harvest are:
+    <code>node()</code>, <code>integer</code>, <code>long</code>,
+    <code>float</code>, <code>double</code>, <code>boolean</code>, <code>string</code>
+    and analog sequence types:
+    <code>node()*</code>, <code>integer*</code>, <code>long*</code>,
+    <code>float*</code>, <code>double*</code>, <code>boolean*</code>, <code>string*</code>.
+    If not specified, default XQuery parameter is <code>node()</code>.
+</div>
+        
+<h3>Example</h3>
+<div>
+<pre>&lt;xquery&gt;
+    &lt;xq-param name="doc"&gt;
+        &lt;html-to-xml&gt;
+            &lt;http url="${sys.fullUrl(startUrl, articleUrl)}"/&gt;
+        &lt;/html-to-xml&gt;
+    &lt;/xq-param&gt;
+    &lt;xq-expression&gt;&lt;![CDATA[
+        declare variable $doc as node() external;
+
+        let $author := data($doc//div[@class="byline"])
+        let $title := data($doc//h1)
+        let $text := data($doc//div[@id="articleBody"])
+            return
+                &lt;article&gt;
+                    &lt;title&gt;{$title}&lt;/title&gt;
+                    &lt;author&gt;{$author}&lt;/author&gt;
+                    &lt;text&gt;{$text}&lt;/text&gt;
+                &lt;/article&gt;
+    ]]&gt;&lt;/xq-expression&gt;
+&lt;/xquery&gt;</pre>
+</div>
+
+<p>
+    The xquery is applied to the downloaded page resulting XML containing information about
+    newspaper's articles.
+</p>

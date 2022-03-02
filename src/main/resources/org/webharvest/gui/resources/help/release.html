@@ -1,0 +1,107 @@
+<h3>Version 1.0</h3>
+<ul>
+    <li>
+        Graphical user interface is introduced giving the environment for easier configuration
+        development and testing.
+    </li
+    <li>
+        <code>html-to-xml</code> processor, which is based on HtmlCleaner, now exposes attributes
+        for controlling cleaner's behaviour.
+    </li>
+    <li>
+        Besides <code>BeanShell</code> scripting engine, two others are added: Groovy and JavaScript.
+        Now it is possible to choose the favourite scripting engine or even mix them in a single
+        Web-Harvest configuration. This option is supported by adding new attributes to
+        <code>config</code>, <code>script</code> and <code>template</code> processors.
+    </li>
+    <li>
+        Access to HTTP client is supported by introducing implicit context varibale <code>http</code>.
+        Now it is possible to check important HTTP response values, like
+        <code>http.mimeType</code>, <code>http.headers</code>, <code>http.statusCode</code>,
+        or even to obtain instance of <code>org.apache.commons.httpclient.HttpClient</code> class
+        with <code>http.client</code> and manipulate it in the runtime.
+    </li>
+    <li>
+        New attribute <code>cookie-policy</code> added to the <code>http</code> processor,
+        specifying the way HttpClient manage cookies.
+    </li>
+    <li>
+        Command-line use is improved by adding several new parameters.
+    </li>
+    <li>
+        For more comfortable use of Web-Harvest context variables in the script engines'
+        runtime scopes, several handy methods are added to the class
+        org.webharvest.runtime.variables.Variable (interface <code>IVariable</code> in
+        previous versions of Web-Harvest).
+    </li>
+    <li>
+        Several useful methods added in implicit Web-Harvest context variable <code>sys</code>,
+        like <code>sys.xpath(expression, xml)</code>, <code>sys.isVariableDefined(varname)</code>
+        and <code>sys.defineVariable(varName, varValue, [overwrite])</code>.
+    </li>
+    <li>
+        Attribute <code>overwrite</code> added in the <code>ver-def</code> processor,
+        giving possibility to specify whether existing variables with specified name
+        will be overwriten or not.
+    </li>
+    <li>
+        New proccessor <code>&lt;exit condition=... message=.../&gt;</code> is introduced
+        in order to support conditional execution break.
+    </li>
+    <li>
+        Encoding selection in <code>http</code> processor is changed - if no explicitely
+        specified with <code>charset</code> attribute, one given from HTTP response is used
+        instead to read downloaded text content.
+    </li>
+    <li>
+        NTLM proxy authentication scheme is supported.
+    </li>
+    <li>
+        Performance improvements and bug fixes.
+    </li>
+</ul>
+
+
+
+<h3>Version 0.5</h3>
+
+<ul>
+    <li>
+        <code>html-to-xml</code> parser is changed - HtmlCleaner is used instead of TagSoup. The
+        bad point in this is that some existing Web-Harvest configurations may need
+        corrections of XPath or XQuery processors. On the other hand, lot of problems
+        previously existing are now solved.
+    </li>
+    <li>
+        Script processor is introduced. It adds scripting support based on
+        BeanShell scripting language.
+    </li>
+    <li>
+        <code>template</code> processor is now based also on BeanShell instead of
+        OGNL, this way giving possibilty to share the same variables and methods
+        with script processing.
+    </li>
+    <li>
+        Optional attribute <code>type</code> is now added to <code>xq-param</code>
+        defaulting to <code>node()</code>. It specifies type of external XQuery
+        parameter. Up to the Web-Harvest 0.5 this parameter was implicitely declared
+        at the beginning of XQuery expression and was always of <code>node()*</code>
+        type. Now on, for each parameter defined
+        with <code>xq-param</code> the matching explicit declaration inside <code>xq-expression</code>
+        is required (<code>declare variable $var_name as var_type external;</code>).
+    </li>
+    <li>
+        A couple of new constructors is added to the class <code>ScraperConfiguration</code>
+        allowing loading configuration from URL or from arbitrary input stream.
+    </li>
+    <li>
+        <code>file</code> and <code>include</code> processors now support both absolute
+        and relative paths. File paths are regarded as absolute if they begin with <code>X:</code>,
+        <code>/</code>, or <code>\</code>, where X is a letter.
+    </li>
+    <li>
+        In order to avoid ambiguity in exchanging values with <code>script</code>
+        and <code>template</code> processing, Web-Harvest variables are case-sensitive
+        from this version.
+    </li>
+</ul>

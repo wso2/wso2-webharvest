@@ -1,0 +1,61 @@
+<p>
+    Creates a ZIP archive by compressing inner content defined by zip-entry elements.
+</p>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;zip>
+    ...
+    [&lt;zip-entry name="name" charset="charset"&gt;
+        entry content
+    &lt;/zip-entry&gt;]*
+    ...
+&lt;/zip&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Required</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>yes</td>
+        <td></td>
+        <td>
+            Name of the file inside ZIP archive.
+        </td>
+    </tr>
+    <tr>
+        <td>charset</td>
+        <td>no</td>
+        <td>default configuration's charset</td>
+        <td>
+            Charset of text file inside zip archive.
+        </td>
+    </tr>
+</table>
+
+<h3>Example</h3>
+<div>
+<pre>&lt;zip&gt;
+    &lt;loop item="filename" index="i"&gt;
+       &lt;list&gt;&lt;var name="myfilenames"/&gt;&lt;/list&gt;
+       &lt;body&gt;
+           &lt;zip-entry name="file${i}.xls"&gt;
+               &lt;file path="${filename}" type="binary"&gt;
+           &lt;/zip-entry&gt;
+       &lt;body&gt;
+    &lt;/loop&gt;
+&lt;/zip&gt;</pre>
+</div>
+
+<p>
+    This example creates an archive that includes list of specified files. This ZIP
+    archive can further be sent via email, stored to database or file system, so that
+    <code>zip</code> element can be inside <code>mail</code>, <code>database</code>,
+    <code>file</code> or any other valid processor.
+</p>

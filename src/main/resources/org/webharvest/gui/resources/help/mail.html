@@ -1,0 +1,138 @@
+<p>
+    Sends an email.
+</p>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;mail smtp-host="smtp server"
+      smtp-port="smtp server port"
+      type="content type"
+      from="sender"
+      reply-to="reply-to header"
+      to="to"
+      cc="cc"
+      bcc="bcc"
+      subject="subject"
+      charset="charset"
+      username="smtp username"
+      password="smtp password"
+      security="smtp security type"&gt;
+    mail content with optional attachments (mail-attach elements)
+&lt;/mail&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Required</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>smtp-host</td>
+        <td>yes</td>
+        <td></td>
+        <td>
+            SMTP server host.
+        </td>
+    </tr>
+    <tr>
+        <td>smtp-port</td>
+        <td>no</td>
+        <td>25</td>
+        <td>
+            SMTP server port.
+        </td>
+    </tr>
+    <tr>
+        <td>type</td>
+        <td>no</td>
+        <td>text</td>
+        <td>
+            Content type of the mail body: <code>text</code> or <code>html</code>.
+        </td>
+    </tr>
+    <tr>
+        <td>from</td>
+        <td>yes</td>
+        <td></td>
+        <td>
+            The senders email address.
+        </td>
+    </tr>
+    <tr>
+        <td>reply-to</td>
+        <td>no</td>
+        <td></td>
+        <td>
+            The email address where replies should be sent to.
+        </td>
+    </tr>
+    <tr>
+        <td>to</td>
+        <td>yes</td>
+        <td></td>
+        <td>
+            Comma-separated list of recipient email addresses.
+        </td>
+    </tr>
+    <tr>
+        <td>cc</td>
+        <td>no</td>
+        <td></td>
+        <td>
+            Comma-separated list of cc email addresses.
+        </td>
+    </tr>
+    <tr>
+        <td>subject</td>
+        <td>no</td>
+        <td></td>
+        <td>
+            Subject of the email.
+        </td>
+    </tr>
+    <tr>
+        <td>charset</td>
+        <td>no</td>
+        <td>default configuration's charset</td>
+        <td>
+            Charset of the email.
+        </td>
+    </tr>
+    <tr>
+        <td>username</td>
+        <td>no</td>
+        <td></td>
+        <td>
+            SMTP server username.
+        </td>
+    </tr>
+    <tr>
+        <td>password</td>
+        <td>no</td>
+        <td></td>
+        <td>
+            SMTP server password.
+        </td>
+    </tr>
+    <tr>
+        <td>security</td>
+        <td>no</td>
+        <td><code>none</code></td>
+        <td>
+            SMTP server security type: <code>none</code>, <code>ssl</code> or <code>tsl</code>
+        </td>
+    </tr>
+</table>
+
+<h3>Example</h3>
+<div>
+<pre>&lt;mail from="reminder@my.com" smtp-host="smtp.gmail.com" to="myaccount@gmail.com"
+      username="myusername" password="mypassword" security="tsl"
+      subject='Reminder for ${sys.datetime("dd.MM.yyyy.")}'&gt;
+      Here is what you need today:
+      &lt;file path="today.txt"&gt;
+&lt;/mail&gt;</pre>
+</div>

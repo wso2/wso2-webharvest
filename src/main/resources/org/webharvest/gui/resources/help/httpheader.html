@@ -1,0 +1,45 @@
+<div>
+    Defines HTTP header for the first enclosing HTTP processor.
+    If used outside the HTTP processor an exception is thrown.
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;http-header name="header_name"&gt;
+    body as header value
+&lt;/http-header&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>yes</td>
+            <td></td>
+            <td>
+                The name of HTTP header.
+            </td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example</h3>
+<div>
+<pre>&lt;http url="www.google.com"&gt;
+    &lt;http-header name="User-Agent"&gt;
+        Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.0.1) Gecko/20060111 Firefox/1.5.0.1
+    &lt;/http-header&gt;
+&lt;/http&gt;</pre>
+</div>
+
+<p>
+    Identifies itself to <em>www.google.com</em> as Firefox browser.
+</p>

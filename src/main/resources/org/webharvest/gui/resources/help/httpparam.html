@@ -1,0 +1,87 @@
+<div>
+    Adds HTTP parameter for the first enclosing HTTP processor for both post and
+    get requests. If used outside the HTTP processor an exception is thrown.  
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;http-param name="param_name"
+            isfile="isfile"
+            contenttype="contenttype"
+            filename="filename"&gt;
+    body as parameter value
+&lt;/http-param&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>yes</td>
+            <td></td>
+            <td>
+                The name of HTTP parameter.
+            </td>
+        </tr>
+        <tr>
+            <td>isfile</td>
+            <td>no</td>
+            <td>no</td>
+            <td>
+                Tells if parameter is file for upload (applies only to multipart requests).
+            </td>
+        </tr>
+        <tr>
+            <td>contenttype</td>
+            <td>no</td>
+            <td></td>
+            <td>
+                MIME type of the upload file (effective for multipart forms where parameter is file).
+            </td>
+        </tr>
+        <tr>
+            <td>filename</td>
+            <td>no</td>
+            <td></td>
+            <td>
+                Name of uploaded file (effective for multipart forms where parameter is file).
+            </td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example</h3>
+<div>
+<pre>&lt;var-def name="paramNames"&gt;
+    USERID
+    PASSWORD
+&lt;/var-def&gt;
+
+&lt;http method="post" url="http://www.nytimes.com/auth/login"&gt;
+   &lt;http-param name="is_continue"&gt;true&lt;/http-param&gt;
+   &lt;http-param name="URI"&gt;http://&lt;/http-param&gt;
+   &lt;http-param name="OQ"&gt;&lt;/http-param&gt;
+   &lt;http-param name="OP"&gt;&lt;/http-param&gt;
+
+   &lt;loop item="name"&gt;
+       &lt;list&gt;
+           &lt;var name="paramNames"/&gt;
+       &lt;/list&gt;
+       &lt;body&gt;
+           &lt;http-param name="${name}"&gt;web-harvest&lt;/http-param&gt;
+       &lt;/body&gt;
+   &lt;/loop&gt;
+&lt;/http&gt;</pre>
+</div>
+
+<p>
+    Sends needed parameters to <em>www.nytimes.com/auth/login</em> in order to log in.
+</p>

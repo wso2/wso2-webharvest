@@ -1,0 +1,49 @@
+<div>
+    Conditionally breaks the configuration execution.
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;exit condition="condition" message="message" /&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>condition</td>
+            <td>no</td>
+            <td>true</td>
+            <td>
+                Condition that determines if execution will stop. Must be boolean value
+                (true, yes, false, no).
+            </td>
+        </tr>
+        <tr>
+            <td>message</td>
+            <td>no</td>
+            <td></td>
+            <td>
+                Optional message to the user if configuration is exiting.
+                Will be part of logging information, or dialog warning will
+                popup if Web-Harvest is used in GUI mode.
+            </td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example</h3>
+<div>
+<pre>&lt;exit condition='${!sys.isVariableDefined("username")}' message="No username provided!" /&gt;</pre>
+</div>
+
+<p>
+    Configuration is stopping execution if variable <code>username</code> is not defined.
+</p>
