@@ -1,0 +1,33 @@
+<div>
+    Applies XSLT transformation to the XML document.  
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;xslt&gt;
+    &lt;xml&gt;
+        body as xml
+    &lt;/xml&gt;
+    &lt;stylesheet&gt;
+        body as xsl
+    &lt;/stylesheet&gt;
+&lt;/xslt&gt;</pre>
+</div>
+
+<h3>Example</h3>
+<div>
+<pre>&lt;xslt&gt;
+    &lt;xml&gt;
+        &lt;html-to-xml&gt;
+            &lt;http url="${url}"/&gt;
+        &lt;/html-to-xml&gt;
+    &lt;/xml&gt;
+    &lt;stylesheet&gt;
+        &lt;file path="stylesheets/tree.xsl"/&gt;
+    &lt;/stylesheet&gt;
+&lt;/xslt&gt;</pre>
+</div>
+
+<p>
+    XSLT transformation, taken from the file is applied to the downloaded content. 
+</p>

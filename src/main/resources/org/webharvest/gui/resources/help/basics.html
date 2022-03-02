@@ -1,0 +1,57 @@
+<p>
+    Web-Harvest is <em>Open Source Web Data Extraction tool</em> written in Java.
+    It offers a way to collect desired Web pages and extract useful
+    data from them. In order to do that, it leverages well
+    established techniques and technologies for text/xml manipulation such as
+    <em>XSLT</em>, <em>XQuery</em> and <em>Regular Expressions</em>. Web-Harvest
+    mainly focuses on HTML/XML based web sites which still make vast majority of
+    the Web content. On the other hand, it could be easily supplemented by custom Java
+    libraries in order to augment its extraction capabilities.
+</p>
+<p>
+    Process of extracting data from Web pages is also referred as <em>Web Scraping</em>
+    or <em>Web Data Mining</em>.
+    World Wide Web, as the largest database, often contains various data that we would
+    like to consume for our needs. The problem is that this data is in most cases mixed together with
+    formatting code - that way making human-friendly, but not machine-friendly content.
+    Doing manual copy-paste is error prone, tedious and sometimes even impossible.
+    Web software designers usually discuss how to make clean separation between content and style,
+    using various frameworks and design patterns in order to achieve that. Anyway, some kind of merge
+    occurs usually at the server side, so that the bunch of HTML is delivered to the web client.
+</p>
+<p>
+    Every Web site and every Web page is composed using some logic. It is therefore needed
+    to describe reverse process - how to fetch desired data from the mixed content.
+    Every extraction procedure in Web-Harvest is user-defined through XML-based
+    <em>configuration files</em>. Each configuration file describes sequence of
+    <em>processors</em> executing some common task in order to accomplish the final goal. Processors
+    execute in the form of <em>pipeline</em>. Thus, the output of one processor execution is input
+    to another one. This can be best explained using the simple configuration fragment:
+</p>
+
+<br>
+<div>
+<pre>&lt;xpath expression="//a[@shape='rect']/@href"&gt;
+    &lt;html-to-xml&gt;
+        &lt;http url="http://www.somesite.com/"/&gt;
+    &lt;/html-to-xml&gt;
+&lt;/xpath&gt;</pre>
+</div>
+
+<p>
+    When Web-Harvest executes this part of configuration, the following steps occur:
+</p>
+<ol>
+    <li><em>http</em> processor downloads content from the specified URL.</li>
+    <li><em>html-to-xml</em> processor cleans up that HTML producing XHTML content.</li>
+    <li>
+        <em>xpath</em> processor searches specific links in XHTML from previous step giving
+        URL sequence as a result.
+    </li>
+</ol>
+
+<p>
+    Web-Harvest supports a set of useful processors for variable manipulation,
+    conditional branching, looping, functions, file operations, HTML and XML processing,
+    exception handling.
+</p>

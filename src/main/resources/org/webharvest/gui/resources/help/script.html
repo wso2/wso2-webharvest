@@ -1,0 +1,131 @@
+<p>
+    Executes code written in specified scripting language. Web-Harvest supports
+    <em>BeanShell</em>, <em>Groovy</em> and <em>Javascript</em>.
+    All of them are powerfull, wide-spread and popular scripting languages.
+</p>
+<p>
+    Body of script processors is executed in specified language and optionally
+    evaluated expression specified in <code>return</code> attribute is returned.
+    All variables defined during configuration execution are also available in the script
+    processor. However, it must be noted that variables used throughtout Web-Harvest are not
+    simple types - they all are <code>org.webharvest.runtime.variables.Variable</code> objects (internal
+    Web-Harvest class) that expose convinient methods:
+</p>
+<ul>
+    <li><code>String toString()</code></li>
+    <li><code>byte[] toBinary()</code></li>
+    <li><code>boolean toBoolean()</code></li>
+    <li><code>int toInt()</code></li>
+    <li><code>long toLong()</code></li>
+    <li><code>double toDouble()</code></li>
+    <li><code>double toDouble()</code></li>
+    <li><code>Object[] toArray()</code></li>
+    <li><code>java.util.List toList()</code></li>
+    <li><code>Object getWrappedObject()</code></li>
+</ul>
+<p>
+    The way to push value back to the Web-Harvest after
+    script finishes is command <code>sys.defineVariable(varName, varValue, [overwrite])</code> which creates
+    appropriate wrapper around specified value : list variables for <code>java.util.List</code>
+    and arrays and simple variables for other objects. The best way to illustrate this is simple
+    example bellow.
+</p>
+
+<p>
+    Each script engine used in the single Web-Harvest configuration, once created, preserves its
+    variable context throughout the configuration, meaning that all variables and objects are
+    available in further script processors that use the same language.
+</p>
+
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;script language="script_language" return="value_to_return"&gt;
+    body as script
+&lt;/script&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>language</td>
+            <td>no</td>
+            <td>
+                Default scripting language if defined in <code>config</code> element,
+                or <code>beanshell</code> if nothing is defined.
+            </td>
+            <td>
+                Defines which scripting engine is used in the processor.
+                Valid values are <em>beanshell</em>, <em>javascript</em> and
+                <em>groovy</em>.
+            </td>
+        </tr>
+        <tr>
+            <td>return</td>
+            <td>no</td>
+            <td>
+                Empty value
+            </td>
+            <td>
+                Specifies what this processor should evaluate at the end and
+                return as processing value.
+            </td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example</h3>
+<div>
+<pre>&lt;config&gt;
+    &lt;var-def name="birthDate"&gt;
+        11/4/1958
+    &lt;/var-def&gt;
+
+    &lt;var-def name="web_harvest_day_variable"&gt;
+        &lt;script return="namedDay.toUpperCase()"&gt;&lt;![CDATA[
+            tokenizer = new StringTokenizer(birthDate.toString(), "./-\\");
+
+            day = Integer.parseInt(tokenizer.nextToken());
+            month = Integer.parseInt(tokenizer.nextToken());
+            year = Integer.parseInt(tokenizer.nextToken());
+
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.DAY_OF_MONTH, day);
+            cal.set(Calendar.MONTH, month-1);
+            cal.set(Calendar.YEAR, year);
+
+            switch( cal.get(Calendar.DAY_OF_WEEK) ) {
+                case 0 : namedDay = "Sunday"; break;
+                case 1 : namedDay = "Monday"; break;
+                case 2 : namedDay = "Tuesday"; break;
+                case 3 : namedDay = "Wendsday"; break;
+                case 4 : namedDay = "Thursday"; break;
+                case 5 : namedDay = "Friday"; break;
+                default: namedDay = "Saturday"; break;
+            }
+        ]]&gt;&lt;/script&gt;
+    &lt;/var-def&gt;
+
+    &lt;template&gt;
+        The day when you were born was ${namedDay}.
+    &lt;/template&gt;
+
+    &lt;file action="write" path="day.txt"&gt;
+        &lt;var name="web_harvest_day_variable"/&gt;
+    &lt;/file&gt;
+&lt;/config&gt;</pre>
+</div>
+
+<p>
+    This example also shows that script internal variables once defined, are
+    available in all the following <code>script</code> and <code>template</code>
+    processors (namedDay).
+</p>

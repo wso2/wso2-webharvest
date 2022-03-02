@@ -1,0 +1,66 @@
+<div>
+    Loops while specified condition is satisfied. The result is list made of
+    processed bodies in each iteration. 
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;while condition="expression"
+       index="index_var_name"
+       maxloops="max_loops"
+       empty="empty"&gt;
+    body
+&lt;/while&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>condition</td>
+            <td>yes</td>
+            <td></td>
+            <td>
+                Expression that is evaluated for every loop and if its value is
+                true, the body is executed.
+            </td>
+        </tr>
+        <tr>
+            <td>index</td>
+            <td>no</td>
+            <td></td>
+            <td>
+                Name of the index variable, initial value for the first loop is 1.
+            </td>
+        </tr>
+        <tr>
+            <td>maxloops</td>
+            <td>no</td>
+            <td></td>
+            <td>
+                Limits number of iterations. There is no limit if it is not specified.
+            </td>
+        </tr>
+        <tr>
+            <td>empty</td>
+            <td>no</td>
+            <td>no</td>
+            <td>
+                Equal to surrounding body by <code>empty</code> element, producing empty result
+                of iteration.
+            </td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example</h3>
+<p>
+    See example from <em>function</em> processor.
+</p>

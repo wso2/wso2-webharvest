@@ -1,0 +1,87 @@
+<div>
+    <p>
+        Object <b>http</b> provides access to Http client and gives information about HTTP responses: 
+    </p>
+    
+    <div>
+        <table border="1">
+            <tr>
+                <td><code>http.client</code></td>
+                <td>
+                    Returns instance of <code>org.apache.commons.httpclient.HttpClient</code> class which
+                    is used as primary HTTP client during the configuration execution.
+                </td>
+            </tr>
+            <tr>
+                <td><code>http.contentLength</code></td>
+                <td>
+                    Lenght of the last HTTP response's content in bytes.
+                </td>
+            </tr>
+            <tr>
+                <td><code>http.charset</code></td>
+                <td>
+                    Encoding of the last HTTP response, if it contain textual content.
+                </td>
+            </tr>
+            <tr>
+                <td><code>http.mimeType</code></td>
+                <td>
+                    Mime type of the last HTTP response.
+                </td>
+            </tr>
+            <tr>
+                <td><code>http.headers</code></td>
+                <td>
+                    Array of HTTP response header pairs. To access individual header by index, use
+                    <br>
+                    <div style="padding-left:20px">
+                      <code>http.headers.length</code>,
+                      <br>
+                      <code>http.headers[index].key</code>,
+                      <br>
+                      <code>http.headers[index].value</code>.
+                      <br>
+                    </div>
+                    To access first header value by name, use
+                    <br>
+                    <div style="padding-left:20px">
+                      <code>http.getHeader("headername")</code>.
+                    </div>
+                    <div>
+                      To get all headers with specified name use <code>http.getHeaders("headername")</code>:
+                    </div>
+                    <div style="padding-left:20px">
+                      <code>http.getHeaders("Set-Cookie").length</code>.
+                      <br>
+                      <code>http.getHeaders("Set-Cookie")[index]</code>.
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><code>http.statusCode</code></td>
+                <td>
+                    Status code of the last HTTP response.
+                </td>
+            </tr>
+            <tr>
+                <td><code>http.statusText</code></td>
+                <td>
+                    Status message of the last HTTP response.
+                </td>
+            </tr>
+            <tr>
+                <td><code>http.totalLength</code></td>
+                <td>
+                    Total length in bytes of all responses returned to this HTTP client.
+                </td>
+            </tr>
+            <tr>
+                <td><code>http.totalResponses</code></td>
+                <td>
+                    Total number of responses returned to this HTTP client.
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

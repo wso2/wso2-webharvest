@@ -1,0 +1,71 @@
+<div>
+    Converts embedded value to the string representation.
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;text charset="charset" delimiter="delimiter"&gt;
+    wrapped body
+&lt;/text&gt;</pre>
+</div>
+
+<p>
+    <h4>Attributes</h4>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>charset</td>
+            <td>no</td>
+            <td>default configuration's charset</td>
+            <td>
+                Charset used if body is converted from binary to text value.
+            </td>
+        </tr>
+        <tr>
+            <td>delimiter</td>
+            <td>no</td>
+            <td>new line character</td>
+            <td>
+                Delimiter string used to separate items when concatenating
+                them into single string.
+            </td>
+        </tr>
+    </table>
+</p>
+
+<h3>Example</h3>
+<div>
+<pre>&lt;var-def name="digits"&gt;
+    &lt;while condition="${i.toInt() != 10}" index="i"&gt;
+        &lt;template&gt;${i}&lt;/template&gt;
+    &lt;/while&gt;
+&lt;/var-def&gt;
+
+&lt;file action="write" path="/test/replaced23.txt"&gt;
+    &lt;regexp replace="true"&gt;
+        &lt;regexp-pattern&gt;(.*)(2.*3)(.*)&lt;/regexp-pattern&gt;
+        &lt;regexp-source&gt;
+            &lt;text&gt;
+                &lt;var name="digits"/&gt;
+            &lt;/text&gt;
+        &lt;/regexp-source&gt;
+        &lt;regexp-result&gt;
+            &lt;template&gt;${_1}here were 2 and 3${_3}&lt;/template&gt;
+        &lt;/regexp-result&gt;
+    &lt;/regexp&gt;
+&lt;/file&gt;</pre>
+</div>
+
+<p>
+    Variable named <em>digits</em> is defined using the <em>while</em>
+    processor, producing sequence of 9 values. Next, the <em>regexpr</em> processor
+    is invoked in order to do search-replace on variable value. <em>text</em>
+    processor is used to concatenate all digit values into single one. Without <em>text</em>
+    processor, regular expression search would be applied to each item in the list (every digit)
+    and that way no replace would occurr, because there is no sequence "2*3".
+</p>

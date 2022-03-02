@@ -1,0 +1,44 @@
+<div>
+    Uses an XPath language expression to search an XML document.  
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;xpath expression="xpath_expression"&gt;
+    body as xml
+&lt;/xpath&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>expression</td>
+            <td>yes</td>
+            <td></td>
+            <td>
+                XPath language expression.
+            </td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example</h3>
+<div>
+<pre>&lt;xpath expression="//a/@href"&gt;
+    &lt;html-to-xml&gt;
+        &lt;http url="http://www.nba.com/"/&gt;
+    &lt;/html-to-xml&gt;
+&lt;/xpath&gt;</pre>
+</div>
+
+<p>
+    The result is sequence of links from the page retrieved from <em>www.nba.com</em>.
+</p>

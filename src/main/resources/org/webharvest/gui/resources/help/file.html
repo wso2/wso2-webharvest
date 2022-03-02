@@ -1,0 +1,133 @@
+<div>
+    Reads and writes content of the file or search directory for specified files.
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;file action="file_action"
+      path="file_path"
+      type="file_type"
+      charset="charset_of_text_file"
+      listdirs="listdirs"
+      listfiles="listfiles"
+      listrecursive="listrecursive"
+      listfilter="listfilter"&gt;
+    body defining content of the file if action="write" or action="append"
+&lt;/file&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>action</td>
+            <td>no</td>
+            <td>read</td>
+            <td>
+                Defines file action. Valid values are <em>read</em>, <em>append</em>, <em>write</em> and <em>list</em>.
+            </td>
+        </tr>
+        <tr>
+            <td>path</td>
+            <td>yes</td>
+            <td></td>
+            <td>
+                File path, relative to the working directory.
+            </td>
+        </tr>
+        <tr>
+            <td>type</td>
+            <td>no</td>
+            <td>text</td>
+            <td>
+                Type of file: <em>text</em> or <em>binary</em>.
+            </td>
+        </tr>
+        <tr>
+            <td>charset</td>
+            <td>no</td>
+            <td>[Default charset for config]</td>
+            <td>
+                Charset for text files. Has no effect if type is <em>binary</em>.
+            </td>
+        </tr>
+        <tr>
+            <td>listdirs</td>
+            <td>no</td>
+            <td>yes</td>
+            <td>
+                Tells whether to list directories (action = <code>list</code>).
+            </td>
+        </tr>
+        <tr>
+            <td>listfiles</td>
+            <td>no</td>
+            <td>yes</td>
+            <td>
+                Tells whether to list files (action = <code>list</code>).
+            </td>
+        </tr>
+        <tr>
+            <td>listrecursive</td>
+            <td>no</td>
+            <td>no</td>
+            <td>
+                Tells whether to recursively search directories (action = <code>list</code>).
+            </td>
+        </tr>
+        <tr>
+            <td>listfilter</td>
+            <td>no</td>
+            <td></td>
+            <td>
+                Filename pattern to search for (* is replacement for any sequence, ? for any character).
+                Works only for action = <code>list</code>.
+            </td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example 1</h3>
+<div>
+<pre>&lt;file action="write" path="123.txt"&gt;
+    &lt;file action="read" path="1.txt"/&gt;
+    -----------------------------------
+    &lt;file action="read" path="2.txt"/&gt;
+    -----------------------------------
+    &lt;file action="read" path="3.txt"/&gt;
+&lt;/file&gt;</pre>
+</div>
+
+<p>
+    Here, new file is created containing appended contents of three existing files,
+    separeted with lines.
+</p>
+
+<h3>Example 2</h3>
+<div>
+<pre>&lt;file action="write" path="c:/images/alljpegs.zip" type="binary"&gt;
+    &lt;zip&gt;
+        &lt;loop item="filename"&gt;
+            &lt;list&gt;
+                &lt;file path="c:/images/" action="list" listfilter="*.jpg" /&gt;
+            &lt;/list&gt;
+            &lt;body&gt;
+                &lt;zip-entry name="${sys.getFilename(filename.toString())}"&gt;
+                    &lt;file type="binary" path="${filename}"/&gt;
+                &lt;/zip-entry&gt;
+            &lt;/body&gt;
+        &lt;/loop&gt;
+    &lt;/zip&gt;
+&lt;/file&gt;</pre>
+</div>
+
+<p>
+    ZIP file consisting of all JPEG images taken from specified directory is created.
+</p>

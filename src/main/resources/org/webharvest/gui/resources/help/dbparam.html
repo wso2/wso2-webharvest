@@ -1,0 +1,42 @@
+<div>
+    Specifies database parameter inside database element.
+    Can be used for storing BLOBs (Binary Large OBjects).
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;db-param type="param_type"&gt;
+    parameter value
+&lt;/db-param&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>type</td>
+            <td>no</td>
+            <td><code>binary</code> if it's value is recognized as binary, <code>text</code> otherwise.</td>
+            <td>
+                Type of the parameter. Valid values are: int, long, double, text and binary.
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h3>Example</h3>
+<div>
+<pre>&lt;database connection="jdbc:mysql://myserver/mydb"
+          jdbcclass="com.mysql.jdbc.Driver"
+          username="myuser"
+          password="mypass"&gt;
+    insert into logos (id, img)
+    values ( 1, &lt;db-param&gt;&lt;http url='${myImageUrl}'/&gt;&lt;/db-param&gt; )
+&lt;/database&gt;</pre>
+</div>

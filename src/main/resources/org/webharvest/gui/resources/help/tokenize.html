@@ -1,0 +1,47 @@
+<p>
+    Splits given text to elements (tokens).
+</p>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;tokenize delimiters="delimiters"
+          trimtokens="trimtokens"
+          allowemptytokens="allowemptytokens"&gt;
+    content to tokenize
+&lt;/tokenize&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Required</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>delimiters</td>
+        <td>no</td>
+        <td>new line character</td>
+        <td>
+            Tells which characters are used as token delimiters.
+        </td>
+    </tr>
+    <tr>
+        <td>trimtokens</td>
+        <td>no</td>
+        <td>yes</td>
+        <td>
+            Tells whether to trim resulting tokens.
+        </td>
+    </tr>
+    <tr>
+        <td>allowemptytokens</td>
+        <td>no</td>
+        <td>no</td>
+        <td>
+            Tells whether to include empty tokens in the resulting list
+            (consisting only of whitespaces).
+        </td>
+    </tr>
+</table>

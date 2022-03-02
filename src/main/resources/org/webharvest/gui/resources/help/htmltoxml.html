@@ -1,0 +1,192 @@
+<div>
+    Cleans up the content of the body and transforms it to the valid XML.
+    The body is usually HTML obtained as a result of <em>http</em> processor execution.
+    Actual parsing and cleaning job is delegated to <em>HtmlCleaner</em> tool.
+    Although no special tuning is needed in most cases, cleaner may be configured with the several
+    parameters defined with the processor's attributes.
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;html-to-xml outputtype="..." advancedxmlescape="..." usecdata="..."
+             specialentities="..." unicodechars="..." omitunknowntags="..."
+             treatunknowntagsascontent="..." omitdeprtags="..."
+             treatdeprtagsascontent="..." omitcomments="..."
+             omithtmlenvelope="..." allowmultiwordattributes="..."
+             allowhtmlinsideattributes="..." namespacesaware="..."
+             prunetags="..."&gt;
+    body as html to be cleaned
+&lt;/html-to-xml&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>outputtype</td>
+            <td>no</td>
+            <td>simple</td>
+            <td>
+                Defines how the resulting XML will be serialized. Allowed values
+                are <code>simple</code>, <code>compact</code>, <code>browser-compact</code>
+                and  <code>pretty</code>.
+            </td>
+        </tr>
+        <tr>
+            <td>advancedxmlescape</td>
+            <td>no</td>
+            <td>true</td>
+            <td>
+                If this parameter is set to true, ampersand sign (&amp) that proceeds
+                valid XML character sequences (&amp;XXX;)
+                will not be escaped with &amp;amp;XXX;
+            </td>
+        </tr>
+        <tr>
+            <td>usecdata</td>
+            <td>no</td>
+            <td>true</td>
+            <td>
+                If true, HtmlCleaner will treat SCRIPT and STYLE tag contents as
+                CDATA sections, or otherwise it will be regarded as ordinary text
+                (special characters will be escaped).
+            </td>
+        </tr>
+        <tr>
+            <td>specialentities</td>
+            <td>no</td>
+            <td>true</td>
+            <td>
+                If true, special HTML entities
+                (i.e. &amp;ocirc;, &amp;permil;, &amp;times;) are replaced with
+                unicode characters they represent (&ocirc;, &permil;, &times;).
+                This doesn't include &amp;, &lt;, &gt;, &quot;, &apos;.
+            </td>
+        </tr>
+        <tr>
+            <td>unicodechars</td>
+            <td>no</td>
+            <td>true</td>
+            <td>
+                If true, HTML characters represented by
+                their codes in form &amp;#XXXX; are replaced with real unicode
+                characters (i.e. &amp;#1078; is replaces with &#1078;).
+            </td>
+        </tr>
+        <tr>
+            <td>omitunknowntags</td>
+            <td>no</td>
+            <td>false</td>
+            <td>
+                Tells whether to skip (ignore) unknown tags during cleanup.
+            </td>
+        </tr>
+        <tr>
+            <td>treatunknowntagsascontent</td>
+            <td>no</td>
+            <td>false</td>
+            <td>
+                Tells whether to treat unknown tags as ordinary content, i.e.
+                <code>&lt;something...&gt;</code> will be transformed to
+                <code>&amp;lt;something...&amp;gt;</code>. This attribute is
+                applicable only if <code>omitUnknownTags</code> is set to false.
+            </td>
+        </tr>
+        <tr>
+            <td>omitdeprtags</td>
+            <td>no</td>
+            <td>false</td>
+            <td>
+                Tells whether to skip (ignore) deprecated HTML tags during cleanup.
+            </td>
+        </tr>
+        <tr>
+            <td>treatdeprtagsascontent</td>
+            <td>no</td>
+            <td>false</td>
+            <td>
+                Tells whether to treat deprecated tags as ordinary content, i.e.
+                <code>&lt;font...&gt;</code> will be transformed to
+                <code>&amp;lt;font...&amp;gt;</code>. This attribute is
+                applicable only if <code>omitDeprecatedTags</code> is set to false.
+            </td>
+        </tr>
+        <tr>
+            <td>omitcomments</td>
+            <td>no</td>
+            <td>false</td>
+            <td>
+                Tells whether to skip HTML comments.
+            </td>
+        </tr>
+        <tr>
+            <td>omithtmlenvelope</td>
+            <td>no</td>
+            <td>false</td>
+            <td>
+                Tells whether to remove HTML and BODY tags from the resulting XML,
+                and use first tag in the BODY section instead. If BODY section doesn't
+                contain any tags, then this attribute has no effect.
+            </td>
+        </tr>
+        <tr>
+            <td>allowmultiwordattributes</td>
+            <td>no</td>
+            <td>true</td>
+            <td>
+                Tells parser wether to allow attribute values consisting of multiple words or not. If true, attribute
+                <code>att="a b c"</code> will stay like it is, and if false parser will split this
+                into <code>att="a" b="b" c="c"</code> (this is default browsers' behaviour).
+            </td>
+        </tr>
+        <tr>
+            <td>allowhtmlinsideattributes</td>
+            <td>no</td>
+            <td>false</td>
+            <td>
+                Tells parser wether to allow html tags inside attribute values. For example, when this flag is set
+                <code>att="here is &lt;a href='xxxx'&gt;link&lt;/a&gt;"</code> will stay like it is, and if not, parser will
+                end attribute value after "<code>here is </code>". <br/>
+                This flag makes sense only if <code>allowMultiWordAttributes</code> is set as well.
+            </td>
+        </tr>
+        <tr>
+            <td>namespacesaware</td>
+            <td>no</td>
+            <td>true</td>
+            <td>
+                If true, namespace prefixes found during parsing will be preserved and all neccessery xml namespace declarations will
+                be added in the root element. If false, all namespace prefixes and all xmlns namespace declarations will be stripped.
+            </td>
+        </tr>
+        <tr>
+            <td>prunetags</td>
+            <td>no</td>
+            <td>empty string</td>
+            <td>
+                Comma-separated list of tags that will be complitely removed (with all nested elements)
+                from XML tree after parsing. For exampe if <code>pruneTags</code> is <code>"script,style"</code>,
+                resulting XML will not contain scripts and styles.
+            </td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example</h3>
+<div>
+<pre>&lt;html-to-xml outputtype="pretty"&gt;
+    &lt;http url="http://www.motors.ebay.com"/&gt;
+&lt;/html-to-xml&gt;</pre>
+</div>
+
+<p>
+    Downloads the <em>www.motors.ebay.com</em> page and cleans it up producing
+    pretty-prented XML content.
+</p>

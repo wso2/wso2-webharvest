@@ -1,0 +1,34 @@
+<div>
+    Wraps execution and for any recoverable exception returns default value
+    without crashing the whole process.
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;try&gt;
+    &lt;body&gt;
+        try body
+    &lt;/body&gt;
+    &lt;catch&gt;
+        catch body
+    &lt;/catch&gt;
+&lt;/try&gt;</pre>
+</div>
+        
+<h3>Example</h3>
+<div>
+<pre>&lt;var-def name="reportText"&gt;
+    &lt;try&gt;
+        &lt;body&gt;
+            &lt;file path="data/report.txt"/&gt;
+        &lt;/body&gt;
+        &lt;catch&gt;
+            No report file!
+        &lt;/catch&gt;
+    &lt;/try&gt;
+&lt;/var-def&gt;</pre>
+</div>
+
+<p>
+    File read exception is caught if occurred and default value is stored in the variable.
+</p>

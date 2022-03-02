@@ -1,0 +1,37 @@
+<div>
+    Includes other configuration file and executes its logic. This is useful for
+    keeping libraries of common functions or for splitting large extraction process into
+    multiple files.
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;include path="file_path"/&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>path</td>
+            <td>yes</td>
+            <td></td>
+            <td>
+                Path of he configuration file to be included. Path is relative the
+                directory where including configuration file is.
+            </td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example</h3>
+<div>
+<pre>&lt;include path="lib.xml"/&gt;</pre>
+</div>

@@ -1,0 +1,48 @@
+<div>
+    Returns value of defined variable. Throws an exception if variable is not defined.
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;var name="variable_name"/&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>yes</td>
+            <td></td>
+            <td>
+                Variable name.
+            </td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example</h3>
+<div>
+<pre>&lt;var-def name="searchEngine"&gt;
+    google
+&lt;/var-def&gt;
+
+&lt;var-def name="${searchEngine}Content"&gt;
+    &lt;http url="http://www.${searchEngine}.com"/&gt;
+&lt;/var-def&gt;
+
+&lt;file action="write" path="data/${searchEngine}_content.html"&gt;
+    &lt;var name="${searchEngine}Content"/&gt;
+&lt;/file&gt;</pre>
+</div>
+
+<p>
+    After execution, file named "google_content.html" contains page content of <em>www.google.com</em>.
+</p>

@@ -1,0 +1,56 @@
+<div>
+    For the given text content, parts surrounded with <em>${</em> and <em>}</em> are
+    evaluated using the specified scripting engine. If no scripting language is specified,
+    default one is used (see <em>config</em> element).  
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;template language="script_language"&gt;
+    body as text for templating
+&lt;/template&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>language</td>
+            <td>no</td>
+            <td>Default config language </td>
+            <td>
+                Specifies script language that will be used for evaluation of parts
+                surrounded with <em>${</em> and <em>}</em>.
+                Valid values are <em>beanshell</em>, <em>javascript</em> and
+                <em>groovy</em>.
+            </td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example</h3>
+<div>
+<pre>&lt;var-def name="content"&gt;
+    &lt;file path="textdata/products.txt"/&gt;
+&lt;/var-def&gt;
+
+&lt;var-def name="changedContent"&gt;
+    &lt;template&gt;
+        ${sys.datetime("yyyy-MM-dd, HH:mm:ss")} ${sys.lf}
+        ---------------------------------------------------- ${sys.lf}
+        ${my.process(content.toString())}
+    &lt;/template&gt;
+&lt;/var-def&gt;</pre>
+</div>
+
+<p>
+    Templater uses some built-in constants, functions and some user-defined objects
+    from variable context in order to produce desired content.
+</p>

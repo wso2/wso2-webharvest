@@ -1,0 +1,59 @@
+<p>
+    Adds an email attachment. Can be used only as part of mail processor of html type.
+</p>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;mail-attach name="name" mimetype="mimetype" inline="inline"&gt;
+    body of the attachment
+&lt;/mail-attach&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Required</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>no</td>
+        <td>Attachment N</td>
+        <td>
+            Name of the attachment.
+        </td>
+    </tr>
+    <tr>
+        <td>mimetype</td>
+        <td>no</td>
+        <td><code>image/jpeg</code> for inline attachments, <br><code>application/octet-stream</code> otherwise</td>
+        <td>
+            Mime type of the attachment.
+        </td>
+    </tr>
+    <tr>
+        <td>inline</td>
+        <td>no</td>
+        <td>no</td>
+        <td>
+            Tells whether attachment is embeded in the mail body.
+        </td>
+    </tr>
+</table>
+
+<h3>Example</h3>
+<div>
+<pre>&lt;mail from="my@my.com" smtp-host="smtp.gmail.com" to="myaccount@gmail.com" type="html"
+      username="myusername" password="mypassword" security="tsl" subject='Photos from the ...'&gt;
+    Here is me with ...
+    &lt;![CDATA[ &lt;img src="]]&gt;
+        &lt;mail-attach inline="true"&gt;&lt;file path="myphoto1.jpg" type="binary"/&gt;&lt;/mail-attach&gt;
+    &lt;![CDATA[ "&gt; ]]&gt;
+    And this is ...
+    &lt;![CDATA[ &lt;img src="]]&gt;
+        &lt;mail-attach inline="true"&gt;&lt;file path="myphoto2.jpg" type="binary"/&gt;&lt;/mail-attach&gt;
+    &lt;![CDATA[ "&gt; ]]&gt;
+&lt;/mail&gt;</pre>
+</div>

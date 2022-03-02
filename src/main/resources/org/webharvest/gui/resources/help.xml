@@ -1,0 +1,51 @@
+<help>
+    <topic id="webharvest" title="Web-Harvest">
+        <topic id="basics" title="Basics"/>
+        <topic id="overview" title="Overview"/>
+        <topic id="licence" title="Licence"/>
+        <topic id="release" title="Release Notes"/>
+    </topic>
+
+    <topic id="ref" title="Reference">
+        <topic id="variables" title="Predefined variables">
+            <topic id="sys" title="sys"/>
+            <topic id="http" title="http"/>
+        </topic>
+        <topic id="processors" title="Processors">
+            <topic id="config" title="config"/>
+            <topic id="empty" title="empty"/>
+            <topic id="text" title="text"/>
+            <topic id="vardef" title="var-def"/>
+            <topic id="var" title="var"/>
+            <topic id="file" title="file"/>
+            <topic id="httpproc" title="http"/>
+            <topic id="httpparam" title="http-param"/>
+            <topic id="httpheader" title="http-header"/>
+            <topic id="htmltoxml" title="html-to-xml"/>
+            <topic id="regexp" title="reg-exp"/>
+            <topic id="xpath" title="xpath"/>
+            <topic id="xquery" title="xquery"/>
+            <topic id="xslt" title="xslt"/>
+            <topic id="script" title="script"/>
+            <topic id="template" title="template"/>
+            <topic id="case" title="case"/>
+            <topic id="loop" title="loop"/>
+            <topic id="while" title="while"/>
+            <topic id="function" title="function"/>
+            <topic id="return" title="return"/>
+            <topic id="call" title="call"/>
+            <topic id="include" title="include"/>
+            <topic id="try" title="try and catch"/>
+            <topic id="exit" title="exit"/>
+            <topic id="database" title="database"/>
+            <topic id="dbparam" title="db-param"/>
+            <topic id="mail" title="mail"/>
+            <topic id="mailattach" title="mail-attach"/>
+            <topic id="zip" title="zip"/>
+            <topic id="ftp" title="ftp"/>
+            <topic id="tokenize" title="tokenize"/>
+            <topic id="jsontoxml" title="json-to-xml"/>
+            <topic id="xmltojson" title="xml-to-json"/>
+        </topic>
+    </topic>
+</help>

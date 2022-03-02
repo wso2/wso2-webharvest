@@ -1,0 +1,149 @@
+<h3>Rationale</h3>
+<p>
+    World Wide Web, though by far the largest knowledge base, is rarely regarded as
+    database in traditional sense - as source of information used for further
+    computing. Web-Harvest is inspired by practical need for having right data
+    at the right time. And very often, the Web is the only source that publicly provides
+    wanted information.
+</p>
+
+<h3>Basic concept</h3>
+<p>
+    The main goal behind Web-Harvest is to empower the usage of already existing
+    extraction technologies. Its purpose is not to propose a new method, but to
+    provide a way to easily use and combine the existing ones. Web-Harvest offers
+    the set of <em>processors</em> for data handling and control flow. Each processor
+    can be regarded as a function - it has zero or more input parameters and gives a
+    result after execution. Processors could be combined in a <em>pipeline</em>,
+    making the chain of execution. For easier manipulation and data reuse
+    Web-Harvest provides <em>variable context</em> where named variables are stored.
+    The following diagram describes one pipeline execution:
+</p>
+
+<div>
+    <center>
+        <img src="diagram1.gif"/>
+    </center>
+</div>
+        
+<p>
+    The result of extraction could be available in files created during execution or
+    from the variable context if Web-Harvest is programmatically used.
+</p>
+
+<h3>Configuration language</h3>
+<p>
+    Every extraction process is defined in one or more <em>configuration files</em>,
+    using simple XML-based language. Each processor is described by specific XML
+    element or structure of XML elements. For the illustration, here is presented
+    an example of configuration file:
+</p>
+
+<br>
+<div>
+<pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;config charset="UTF-8"&gt;
+    &lt;var-def name="urlList"&gt;
+        &lt;xpath expression="//img/@src"&gt;
+            &lt;html-to-xml&gt;
+                &lt;http url="http://news.bbc.co.uk"/&gt;
+            &lt;/html-to-xml&gt;
+        &lt;/xpath&gt;
+    &lt;/var-def&gt;
+
+    &lt;loop item="link" index="i" filter="unique"&gt;
+        &lt;list&gt;
+            &lt;var name="urlList"/&gt;
+        &lt;/list&gt;
+        &lt;body&gt;
+            &lt;file action="write" type="binary" path="images/${i}.gif"&gt;
+                &lt;http url="${sys.fullUrl('http://news.bbc.co.uk', link)}"/&gt;
+            &lt;/file&gt;
+        &lt;/body&gt;
+    &lt;/loop&gt;
+&lt;/config&gt;</pre>
+</div>
+<br>
+
+<div>
+    This configuration contains two pipelines. The first pipeline performs the following steps:
+    <ol>
+        <li>HTML content at <em>http://news.bbc.co.uk</em> is downloaded,</li>
+        <li>HTML cleaning is performed on downloaded content producing XHTML,</li>
+        <li>XPath expression is searched for, giving URL sequence of page images,</li>
+        <li>New variable named "<em>urlList</em>" is defined containing sequence of image URLs.</li>
+    </ol>
+    The second pipeline uses result of the previous execution in order to collect all page images:
+    <ol>
+        <li><em>Loop</em> processor iterates over URL sequence and for every item:</li>
+        <li>Downloads image at current URL,</li>
+        <li>Stores the image on the file system.</li>
+    </ol>
+
+    This example illustrates some procedural-language elements of Web-Harvest, like variable definition
+    and list iteration, few data management processors (<em>file</em> and <em>http</em>) and couple of HTML/XML
+    processing instructions (<em>html-to-xml</em> and <em>xpath</em> processors).
+</div>
+
+<h3>Data values</h3>
+<p>
+    All data produced and consumed during extraction process in Web-Harvest have three representations:
+    text, binary and list. There is also special data value <em>empty</em>, whose textual representation
+    is empty string, binary - empty byte array and list - zero length list. Which form of data is used -
+    it depends on processor that consumes the data. In previous configuration <em>html-to-xml</em> processor
+    uses downloaded content as text in order to transform it to HTML, <em>loop</em> processor uses variable
+    <em>urlList</em> as a list in order to iterate over it and <em>file</em> processor treats downloaded
+    images as binary data when saving them to the files. In most cases proper representation of the data is chosen
+    by Web-Harvest. However - in some situations it must be explicitly stated which one to use.
+    One example is <em>file</em> processor where default data type is <em>text</em> and the binary content
+    must be explicitly specified with <code>type="binary"</code>.
+</p>
+
+<h3>Variables</h3>
+<p>
+    Web-Harvest provides the variable context for storing and using variables. There is no special
+    convention for naming variables like in most of the programming languages. Thus, the names like
+    <em>arr[1]</em>, <em>100</em> or <em>#$&</em> are valid. However, if aforementioned variables were
+    used in scripts or templates (see next section), where expressions are dynamically evaluated,
+    the exception would be thrown. It is therefore recommended to use usual programming language
+    naming in order to avoid any difficulties.
+</p>
+<p>
+    When Web-Harvest is programmatically used (from Java code, not from command line) variable context
+    may be initially set by user in order to add custom values and functionality. Similarly, after
+    execution, variable context is available for taking variables from it.
+</p>
+<p>
+    When <em>user-defined functions</em> are called, separate 
+    local variable context is created (like in many programming languages, including Java). The valid
+    way to exchange data between caller and called function is through the function parameters.
+</p>
+
+
+<h3>Scripting and templating</h3>
+<p>
+    Besides the set of powerful text and XML manipulation processors,
+    Web-Harvest supports real scripting languages which code can be easily intergrated
+    within scraper configurations. Languages currently supported are <em>BeanShell</em>,
+    <em>Groovy</em> and <em>Javascript</em>. BeanShell is probably the closest to Java
+    syntax and power, but <em>Groovy</em> and <em>Javascript</em> have some other
+    adventages. It is up to the developer to use prefered language or even to mix different
+    languages in the single configuration.
+</p>
+<p>
+    Templating allowes evaluating of marked parts of the text (text "islands" surrounded
+    with <em>${</em> and <em>}</em>). Evaluation is performed using the chosen scripting language.
+    In Web-Harvest all elements' attributes are implicitly
+    passed to the templating engine. In upper configuration, there are two places where templater is doing the job:
+</p>
+<ul>
+    <li>
+        <code>path="images/${i}.gif"</code>
+        in <em>file</em> processor, producing file names based on loop index,
+    </li>
+    <li>
+        <code>url="${sys.fullUrl('http://news.bbc.co.uk', link)}"</code>
+        in <em>http</em> processor, where built-in functionality is called to calculate full URL of the image.
+    </li>
+</ul>

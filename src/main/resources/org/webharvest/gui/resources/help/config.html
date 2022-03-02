@@ -1,0 +1,64 @@
+<div>
+    This is the root element of every configuration file.
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;config charset="charset_value" scriptlang="default_script_lang"&gt;
+    configuration body
+&lt;/config&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<table border="1">
+    <tr>
+        <th style="border: 1px solid #CCCCCC;">Name</th>
+        <th>Required</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>charset</td>
+        <td>no</td>
+
+        <td>UTF-8</td>
+        <td>
+            Defines default charset used throughout configuration. Every processor
+            that needs charset information uses this value if other not explicitly set.
+        </td>
+    </tr>
+    <tr>
+        <td>scriptlang</td>
+        <td>no</td>
+
+        <td>beanshell</td>
+        <td>
+            Defines default scripting engine used throughout configuration.
+            Allowed values are <em>beanshell</em>, <em>javascript</em>
+            and <em>groovy</em>. Default engine is used wherever not other
+            is specified. <em>script</em> and
+            <em>template</em> processors have ability to specify
+            scripting engine within the same Web-Harvest configuration, that way
+            giving possibility to even mix different scripting languages.
+        </td>
+    </tr>
+</table>
+
+<h3>Example</h3>
+<div>
+<pre>&lt;config charset="ISO-8859-1" scriptlang="groovy"&gt;
+    &lt;file action="write" path="squares.txt"&gt;
+        &lt;script return="${[1, 2, 3, 4, 5].collect(square)}"&gt;
+            &lt;![CDATA[
+                square = { it * it }
+            ]]&gt;
+        &lt;/script&gt;
+    &lt;/file&gt;
+&lt;/config&gt;</pre>
+</div>
+
+<p>
+    Here, <em>file</em> processor uses default encoding <em>ISO-8859-1</em> and
+    <em>script</em> processor uses default language <em>groovy</em>.
+</p>

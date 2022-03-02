@@ -1,0 +1,86 @@
+<div>
+    Declares the user-defined function.
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;function name="function_name"&gt;
+    function body
+&lt;/function&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>yes</td>
+            <td></td>
+            <td>The name of user-defined function</td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example</h3>
+<div>
+<pre>&lt;function name="download-multipage-list"&gt;
+    &lt;return&gt;
+        &lt;while condition="${pageUrl.toString().trim() != ''}" maxloops="${maxloops}" index="i"&gt;
+            &lt;empty&gt;
+                &lt;var-def name="content"&gt;
+                    &lt;html-to-xml&gt;
+                        &lt;http url="${pageUrl}"/&gt;
+                    &lt;/html-to-xml&gt;
+                &lt;/var-def&gt;
+
+                &lt;var-def name="nextLinkUrl"&gt;
+                    &lt;xpath expression="${nextXpath}"&gt;
+                        &lt;var name="content"/&gt;
+                    &lt;/xpath&gt;
+                &lt;/var-def&gt;
+
+                &lt;var-def name="pageUrl"&gt;
+                    &lt;template&gt;${sys.fullUrl(pageUrl, nextLinkUrl)}&lt;/template&gt;
+                &lt;/var-def&gt;
+            &lt;/empty&gt;
+
+            &lt;xpath expression="${itemXPath}"&gt;
+                &lt;var name="content"/&gt;
+            &lt;/xpath&gt;
+        &lt;/while&gt;
+    &lt;/return&gt;
+&lt;/function&gt;
+
+&lt;var-def name="imgLinks"&gt;
+    &lt;call name="download-multipage-list"&gt;
+        &lt;call-param name="pageUrl"&gt;
+            http://images.google.com/images?q=harvest&hl=en&btnG=Search+Images&nojs=1
+        &lt;/call-param&gt;
+        &lt;call-param name="nextXPath"&gt;
+            //a[@shape='rect' and .='Next']/@href
+        &lt;/call-param&gt;
+        &lt;call-param name="itemXPath"&gt;
+            //img[contains(@src, 'images?q=tbn')]/@src
+        &lt;/call-param&gt;
+        &lt;call-param name="maxloops"&gt;
+            5
+        &lt;/call-param&gt;
+    &lt;/call&gt;
+&lt;/var-def&gt;</pre>
+</div>
+
+<p>
+    Here the function named <em>download-multipage-list</em> is defined in order to serve multiple
+    extractions. It collects link URLs from series of pages where XPath expression parameter
+    is used to determine URL of next page with links if it exists. This situation is typical
+    for list of products, or list of search results spanning multiple web pages.
+    After that, the function is called with specified parameters in order to collect image links
+    from <em>Google images search</em> limiting number of resulting pages to 5.
+</p>

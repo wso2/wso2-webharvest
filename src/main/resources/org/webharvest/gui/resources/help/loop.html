@@ -1,0 +1,115 @@
+<div>
+    Iterate through the specified list and executes specified body logic for each
+    item. Result is the list of processed bodies.  
+</div>
+
+<h3>Syntax</h3>
+<div>
+<pre>&lt;loop item="item_var_name"
+      index="index_var_name"
+      maxloops="max_loops"
+      filter="list_filter"
+      empty="empty"&gt;
+    &lt;list&gt;
+        body as list value
+    &lt;/list&gt;
+    &lt;body&gt;
+        body for each list item
+    &lt;/body&gt;
+&lt;/loop&gt;</pre>
+</div>
+
+<h3>Attributes</h3>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Required</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>item</td>
+            <td>no</td>
+            <td></td>
+            <td>
+                Name of the variable that takes the value of current list item.
+            </td>
+        </tr>
+        <tr>
+            <td>index</td>
+            <td>no</td>
+            <td></td>
+            <td>
+                Name of the index variable, initial value for the first loop is 1.
+            </td>
+        </tr>
+        <tr>
+            <td>maxloops</td>
+            <td>no</td>
+            <td></td>
+            <td>
+                Limits number of iterations. There is no limit if it is not specified.
+            </td>
+        </tr>
+        <tr>
+            <td>filter</td>
+            <td>no</td>
+            <td></td>
+            <td>
+                Expression for filtering iteration list. It consists of arbitrary number of
+                restrictions separated by comma. There are the following types of restrictions:
+                <ul>
+                    <li>
+                        <code>[n]-[m]</code>, for specifying index range, for example: <code>3-6</code>,
+                        <code>-5</code>.
+                    </li>
+                    <li>
+                        <code>[n][:][m]</code>, for specifying sublist starting at index <code>n</code>
+                        and including items at indexes <code>n+m</code>, <code>n+2*m</code>, <code>n+3*m</code>, ...,
+                        for example <code>1:2</code> for all odd, <code>2:2</code> for all even.
+                    </li>
+                    <li>
+                        <code>unique</code>, that removes duplicates from list comparing string values of
+                        list items.
+                    </li>
+                </ul>
+                Valid filter which is combination of allowed restrictions is for example:
+                <code>1-20,1:2,unique</code>.
+            </td>
+        </tr>
+        <tr>
+            <td>empty</td>
+            <td>no</td>
+            <td>no</td>
+            <td>
+                Equal to surrounding body by <code>empty</code> element, producing empty result
+                of iteration.
+            </td>
+        </tr>
+    </table>
+</div>
+        
+<h3>Example</h3>
+<div>
+<pre>&lt;loop item="link" index="i" filter="unique"&gt;
+    &lt;list&gt;
+        &lt;xpath expression="//img/@src"&gt;
+            &lt;html-to-xml&gt;
+                &lt;http url="http://www.yahoo.com"/&gt;
+            &lt;/html-to-xml&gt;
+        &lt;/xpath&gt;
+    &lt;/list&gt;
+    &lt;body&gt;
+        &lt;file action="write" type="binary" path="images/${i}.gif"&gt;
+            &lt;http url="${sys.fullUrl('http://www.yahoo.com', link)}"/&gt;
+        &lt;/file&gt;
+    &lt;/body&gt;
+&lt;/loop&gt;</pre>
+</div>
+
+<p>
+    Loop iterates over the all unique image URLs from <em>www.yahoo.com</em> and for each
+    URL downloads the image and stores it to the file system.
+</p>
